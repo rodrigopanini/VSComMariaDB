@@ -13,6 +13,9 @@ namespace VSComMariaDB.Model
                .AddJsonFile("appsettings.json")
             .Build();
 
+            OptionsBuilder.EnableSensitiveDataLogging();
+            OptionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
+
             var ConnectionString = Configuration.GetConnectionString("MariaDB");
             OptionsBuilder.UseMySql(ConnectionString, ServerVersion.AutoDetect(ConnectionString));
         }

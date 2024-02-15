@@ -34,48 +34,8 @@
         <div class="col-12">
           <label class="form-label" for="txtImagem">URL Imagem</label>
           <input class="form-control" id="txtImagem" type="text" />
-        </div>
-        <div class="col-12">
-          <button class="btn btn-primary" onclick="enviarDadosAPI()">
-            Cadastrar
-          </button>
-        </div>
+        </div>       
       </div>
     </div>
-  </body>
-  <script>
-    function enviarDadosAPI() {
-      const update = {
-        Nome: document.getElementById('txtNome').value,
-        Descricao: document.getElementById('txtDescricao').value,
-        Imagem: document.getElementById('txtImagem').value,
-        Disponivel: true,
-        Novidade: true,
-        Preco: 30,
-      }
-
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(update),
-      }
-      
-      fetch("https://localhost:7282/api/Produto", options)
-        .then((data) => {
-          if (!data.ok) {
-            throw Error(data.status);
-          }
-          console.log(data.json());
-          return data.json();
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }
-  </script>
+  </body>  
 </html>

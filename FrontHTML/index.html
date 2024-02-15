@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testar API</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-8">
+          <label class="form-label" for="txtNome">Nome</label>
+          <input class="form-control" id="txtNome" type="text" />
+        </div>
+        <div class="col-4">
+          <label class="form-label" for="txtPreco">Preço</label>
+          <input class="form-control" id="txtPreco" type="text" />
+        </div>
+        <div class="col-12">
+          <label class="form-label" for="txtDescricao">Descrição</label>
+          <textarea class="form-control" id="txtDescricao" rows="3"></textarea>
+        </div>
+        <div class="col-12">
+          <label class="form-label" for="txtImagem">URL Imagem</label>
+          <input class="form-control" id="txtImagem" type="text" />
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" onclick="enviarDadosAPI()">
+            Cadastrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function enviarDadosAPI() {
+      const update = {
+        Nome: document.getElementById('txtNome').value,
+        Descricao: document.getElementById('txtDescricao').value,
+        Imagem: document.getElementById('txtImagem').value,
+        Disponivel: true,
+        Novidade: true,
+        Preco: 30,
+      }
+
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(update),
+      }
+      
+      fetch("https://localhost:7282/api/Produto", options)
+        .then((data) => {
+          if (!data.ok) {
+            throw Error(data.status);
+          }
+          console.log(data.json());
+          return data.json();
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  </script>
+</html>
